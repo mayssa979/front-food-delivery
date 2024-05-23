@@ -2,7 +2,7 @@
     File Name: navigation.scss
     Description: Common mixin for menus, contain dark and light version scss.
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, React, Angular, HTML & Laravel Admin Dashboard Template
+    Item Name: food-delivery - Vuejs, React, Angular, HTML & Laravel Admin Dashboard Template
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -82,7 +82,8 @@
       margin-top: 1.35rem;
       font-size: inherit;
       .brand-logo img {
-        max-width: 36px;
+        max-width: 100px;
+        max-height: 70px;
       }
       .brand-text {
         color: $primary;

@@ -184,10 +184,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     
     this.currentUse = this.token.getUser();
-    // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log("user connected", this.currentUse)
     
-    this.name = this.currentUse.username;
+    //this.name = this.currentUse.username;
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

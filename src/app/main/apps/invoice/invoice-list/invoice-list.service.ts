@@ -27,8 +27,9 @@ export class InvoiceListService implements Resolve<any> {
    * @returns {Observable<any> | Promise<any> | any}
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+    let currentId = Number(route.paramMap.get('id'));
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getDataTableRows()]).then(() => {
+      Promise.all([this.getDataTableRows(currentId)]).then(() => {
         resolve();
       }, reject);
     });
@@ -37,9 +38,10 @@ export class InvoiceListService implements Resolve<any> {
   /**
    * Get rows
    */
-  getDataTableRows(): Promise<any[]> {
+  getDataTableRows(id: number): Promise<any[]> {
+    const url = `api/invoice-data`;
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/invoice-data').subscribe((response: any) => {
+      this._httpClient.get(url).subscribe((response: any) => {
         this.rows = response;
         this.onInvoiceListChanged.next(this.rows);
         resolve(this.rows);

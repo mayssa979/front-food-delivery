@@ -1,13 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-
-import { BehaviorSubject, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError  } from 'rxjs';
 
 import { Email } from 'app/main/apps/email/email.model';
 
 @Injectable()
 export class EmailService implements Resolve<any> {
+ 
   // Public
   public emails: Email[];
   public selectedEmails: Email[];
@@ -41,6 +42,7 @@ export class EmailService implements Resolve<any> {
   /**
    *
    * @param {HttpClient} _httpClient
+   * @param {HttpErrorResponse} _httpResponse
    * @param {Router} router
    */
   constructor(private _httpClient: HttpClient, private router: Router) {
@@ -87,7 +89,12 @@ export class EmailService implements Resolve<any> {
       }, reject);
     });
   }
-
+  sendEmail(emailRequest: any): Observable<any> {
+    console.log("email", emailRequest);
+    return this._httpClient.post("http://localhost:8080/email/sendEmail", emailRequest)
+      
+  }
+  
   /**
    * Get Emails
    */
@@ -185,6 +192,24 @@ export class EmailService implements Resolve<any> {
     this.composeEmailChanged.next(this.composeEmailRef);
   }
 
+
+    // Method to send email
+   /* sendEmail() {
+      const emailRequest = {
+        to: this.to, 
+        subject: this.emailSubject,
+        body: this.emailBody
+      };
+  
+      this._httpClient.post('http://localhost:8080/sendEmail', emailRequest)
+        .subscribe((response: any) => {
+          console.log('Email sent successfully:', response);
+          // Additional logic if needed after sending email
+        }, (error: any) => {
+          console.error('Error sending email:', error);
+          // Handle error appropriately
+        });
+    }*/
   /**
    * Set/Update Folder On Selected Emails
    *

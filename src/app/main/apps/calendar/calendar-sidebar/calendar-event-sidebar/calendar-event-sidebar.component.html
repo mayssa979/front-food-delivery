@@ -4,32 +4,23 @@
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleEventSidebar()">
       ×
     </button>
-  <!-- <div class="modal-header mb-1">
+   <div class="modal-header mb-1">
       <h5 class="modal-title">{{ isDataEmpty === true ? 'Add' : 'Update' }} Event</h5>
-    </div> -->
+    </div> 
     <div class="modal-body flex-grow-1 pb-sm-0 pb-3">
       <form
         class="event-form needs-validation"
         (ngSubmit)="(eventForm.form.valid); eventForm.reset()"
         #eventForm="ngForm"
       >
-      <!--  <div class="form-group">
-          <label for="title" class="form-label">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            name="title"
-            placeholder="Event Title"
-            required
-            [(ngModel)]="event.title"
-            [class.error]="eventForm.submitted && formNameRef.invalid"
-            #formNameRef="ngModel"
-          />
-          <span *ngIf="eventForm.submitted && formNameRef.invalid" class="invalid-form">
-            <small class="form-text text-danger" *ngIf="formNameRef.errors.required">This field is required!</small>
-          </span>
-        </div> -->
+      
+       <div *ngIf="!isDataEmpty" class="form-group">
+
+          <p>Id </p>
+           {{ event.id }}
+          
+        </div> 
+      
      <!--   <div class="form-group">
           <label for="select-label" class="form-label">Label</label>
           <ng-select
@@ -51,12 +42,13 @@
             <small class="form-text text-danger" *ngIf="formLabelRef.errors.required">Label is required!</small>
           </span>
         </div> -->
+        
         <div class="form-group position-relative">
           <label for="start-date" class="form-label">Start Date</label>
           <ng2-flatpickr
             [config]="startDateOptions"
             name="startDate"
-            [setDate]="event.start"
+            [setDate]="event.date"
             #startDatePicker
             required
             [class.error]="eventForm.submitted"
@@ -74,38 +66,30 @@
             [class.error]="eventForm.submitted"
           ></ng2-flatpickr>
         </div> -->
-     <!--   <div class="form-group">
-          <div class="custom-control custom-switch">
-            <input
-              type="checkbox"
-              class="custom-control-input allDay-switch"
-              id="customSwitch3"
-              [(ngModel)]="event.allDay"
-              name="allDay"
-            />
-            <label class="custom-control-label" for="customSwitch3">All Day</label>
-          </div>
-        </div> -->
-        
-        <div class="form-group select2-primary">
-          <label for="event-guests" class="form-label">Add Guests</label>
-          <ng-select
-            [items]="selectGuest"
-            name="selectGuest"
-            [(ngModel)]="event.extendedProps.addGuest"
-            bindLabel="name"
-          >
-            <ng-template ng-option-tmp ng-label-tmp let-item="item">
-              <div class="media align-items-center">
-                
-                <div class="media-body">
-                  <li *ngFor="let pat of patient"></li>
-                  <p class="mb-0">{{ pat }}</p>
-                </div>
-              </div>
-            </ng-template>
-          </ng-select>
-        </div>
+        <div *ngIf="!isDataEmpty" style="display: inline-flex;width:100% ;">
+     
+          <span class="nav-link nav-link-search"  >
+
+            patient : {{ event.extendedProps.patient.firstname  }} {{ event.extendedProps.patient.lasstname  }} 
+            
+          </span>
+
+          <a routerLink="/apps/patient/patient-view/{{ event.extendedProps.patient.id }}">
+            <i style="float: right;" [data-feather]="'search'" [class]="'ficon'"></i>
+          </a>
+        </div> 
+
+    <!--    <div style="margin-bottom: 10px;">
+          <span  >
+            <a routerLink="/apps/patient/patient-view/{{ event.extendedProps.patient.id }}" >
+
+              <i class="pull-right" [data-feather]="'search'" [class]="'ficon'"></i>
+            </a>
+            
+            patient : {{ event.extendedProps.patient.firstname  }} {{ event.extendedProps.patient.lastname  }}
+          </span>
+        </div>-->
+       
        
        
         <div class="form-group d-flex">

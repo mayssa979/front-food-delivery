@@ -53,8 +53,12 @@ export class EcommerceItemComponent implements OnInit {
       product.isInCart = true;
     });
   }
-
+  getBase64ImageSrc(base64Data: string): string {
+    return `data:image/jpeg;base64,${base64Data}`;
+  }
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 }

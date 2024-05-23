@@ -22,7 +22,7 @@ export const menu: CoreMenu[] = [
         title: 'Analytics',
         translate: 'MENU.DASHBOARD.ANALYTICS',
         type: 'item',
-       // role: ['Admin'], //? To set multiple role: ['Admin', 'Client']
+        role: ['Admin'], //? To set multiple role: ['Admin', 'Client']
         icon: 'circle',
         url: 'dashboard/analytics'
       },

@@ -6,7 +6,7 @@ import { EventRef } from 'app/main/apps/calendar/calendar.model';
 import { CalendarService } from 'app/main/apps/calendar/calendar.service';
 import { rdv } from 'app/auth/models/rdv';
 
-let rd = new rdv();
+let event = new rdv();
 
 @Component({
   selector: 'app-calendar-event-sidebar',
@@ -19,7 +19,10 @@ export class CalendarEventSidebarComponent implements OnInit {
   @ViewChild('endDatePicker') endDatePicker;
 
   // Public
-  public event: EventRef;
+  //public rd: rdv ;
+  //public event: EventRef;
+  public event: rdv;
+  public id: number;
   public isDataEmpty;
   public selectLabel = [
     { label: 'Business', bullet: 'primary' },
@@ -78,11 +81,13 @@ export class CalendarEventSidebarComponent implements OnInit {
       eventForm.form.value.start = this.startDatePicker.flatpickrElement.nativeElement.children[0].value;
      // eventForm.form.value.end = this.endDatePicker.flatpickrElement.nativeElement.children[0].value;
        // eventForm.form.value.start = date.toISOString();
-       rd.date = this.startDatePicker.flatpickrElement.nativeElement.children[0].toISOString;
+       event.date = this.startDatePicker.flatpickrElement.nativeElement.children[0].toISOString;
       this._calendarService.addEvent(eventForm.form.value);
       this.toggleEventSidebar();
     }
   }
+
+
 
   /**
    * Update Event
@@ -90,7 +95,7 @@ export class CalendarEventSidebarComponent implements OnInit {
   updateEvent() {
     this.toggleEventSidebar();
     //! Fix: Temp fix till ng2-flatpicker support ng-modal
-    this.event.start = this.startDatePicker.flatpickrElement.nativeElement.children[0].value;
+    //this.event.start = this.startDatePicker.flatpickrElement.nativeElement.children[0].value;
     //this.event.end = this.endDatePicker.flatpickrElement.nativeElement.children[0].value;
     this._calendarService.postUpdatedEvent(this.event);
   }
@@ -113,22 +118,36 @@ export class CalendarEventSidebarComponent implements OnInit {
     // Subscribe to current event changes
     this._calendarService.onCurrentEventChange.subscribe(response => {
       this.event = response;
-
+      //rd = response;
       // If Event is available
+     // console.log("event ---- ", this.event);
+      
+
+      console.log(" "+Object.keys(response).length);
+      console.log("id "+this.event.id);
       if (Object.keys(response).length > 0) {
         this.event = response;
+        //console.log("sidebar ----- " ,this.event.extendedProps.patient);
+        //rd = response ;
         this.isDataEmpty = false;
         if (response.id === undefined) {
           this.isDataEmpty = true;
+          setTimeout(() => {
+            this.startDatePicker.flatpickr.clear();
+            //this.startDatePicker.Clear;
+           // this.endDatePicker.flatpickr.clear();
+          });
         }
       }
       // else Create New Event
       else {
-        this.event = new EventRef();
-
+        this.event = new rdv();
+        //event = new rdv();
         // Clear Flatpicker Values
+       // this.startDatePicker.flatpickr.clear();
         setTimeout(() => {
           this.startDatePicker.flatpickr.clear();
+          //this.startDatePicker.Clear;
          // this.endDatePicker.flatpickr.clear();
         });
         this.isDataEmpty = true;

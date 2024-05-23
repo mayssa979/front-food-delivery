@@ -1,0 +1,36 @@
+.map-container {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 20px;
+  text-align: center;
+}
+
+.map-frame {
+  border: 2px solid grey;
+  height: 300px;
+  margin-bottom: 20px;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  cursor: crosshair;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.add-location-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-location-button:hover {
+  background-color: #45a049;
+}

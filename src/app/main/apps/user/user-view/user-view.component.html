@@ -33,14 +33,14 @@
                               }"
                               class="m-0"
                             >
-                              {{ data.fullName | initials }}
+                              {{ data.firstname | initials }}
                             </h2>
                           </div>
                         </div>
                       </ng-template>
                       <div class="d-flex flex-column ml-1">
                         <div class="user-info mb-1">
-                          <h4 class="mb-0">{{ data.fullName }}</h4>
+                          <h4 class="mb-0">{{ data.firstname }}</h4>
                           <span class="card-text">{{ data.email }}</span>
                         </div>
                         <div class="d-flex flex-wrap">
@@ -52,7 +52,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="d-flex align-items-center user-total-numbers">
+                  <!--div class="d-flex align-items-center user-total-numbers">
                     <div class="d-flex align-items-center mr-2">
                       <div class="color-box bg-light-primary">
                         <i [data-feather]="'dollar-sign'" [class]="'text-primary'"></i>
@@ -71,7 +71,7 @@
                         <small>Annual Profit</small>
                       </div>
                     </div>
-                  </div>
+                  </div-->
                 </div>
                 <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
                   <div class="user-info-wrapper">
@@ -119,7 +119,7 @@
         <!-- /User Card Ends-->
 
         <!-- Plan Card starts-->
-        <div class="col-xl-3 col-lg-4 col-md-5">
+        <!--div class="col-xl-3 col-lg-4 col-md-5">
           <div class="card plan-card border-primary">
             <div class="card-header d-flex justify-content-between align-items-center pt-75 pb-1">
               <h5 class="mb-0">Current Plan</h5>
@@ -143,14 +143,13 @@
               <button class="btn btn-primary text-center btn-block" rippleEffect>Upgrade Plan</button>
             </div>
           </div>
-        </div>
+        </div-->
         <!-- /Plan CardEnds -->
       </div>
       <!-- User Card & Plan Ends -->
 
       <!-- User Timeline & Permissions Starts -->
-      <div class="row">
-        <!-- information starts -->
+      <!--div class="row">
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
@@ -205,11 +204,7 @@
             </div>
           </div>
         </div>
-        <!-- information Ends -->
-
-        <!-- User Permissions Starts -->
         <div class="col-md-6">
-          <!-- User Permissions -->
           <div class="card">
             <div class="card-header">
               <h4 class="card-title">Permissions</h4>
@@ -366,22 +361,16 @@
               </table>
             </div>
           </div>
-          <!-- /User Permissions -->
         </div>
-        <!-- User Permissions Ends -->
-      </div>
-      <!-- User Timeline & Permissions Ends -->
+      </div-->
 
-      <!-- User Invoice Starts-->
-      <div class="row invoice-list-wrapper">
+      <!--div class="row invoice-list-wrapper">
         <div class="col-12">
           <div class="card">
             <app-invoice-list></app-invoice-list>
           </div>
         </div>
-      </div>
-      <!-- /User Invoice Ends-->
+      </div-->
     </section>
-    <!-- page users view end -->
   </div>
 </div>

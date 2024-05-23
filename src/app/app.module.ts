@@ -32,6 +32,8 @@ import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/
 import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
 
 import { AuthInterceptor } from './main/pages/authentication/auth-login-v2/AuthInterceptor ';
+import { PatientComponent } from './patient/patient.component';
+import { LocationComponent } from './main/apps/ecommerce/ecommerce-checkout/location/location.component';
 
 const appRoutes: Routes = [
   { 
@@ -82,6 +84,7 @@ const appRoutes: Routes = [
     redirectTo: '/dashboard/ecommerce',
     pathMatch: 'full'
   },
+  
   {
     path: '**',
     redirectTo: '/pages/miscellaneous/error' //Error 404 - Page not found
@@ -94,7 +97,8 @@ const appRoutes: Routes = [
     ContextMenuComponent,
     BasicCustomContextMenuComponent,
     AnimatedCustomContextMenuComponent,
-    SubMenuCustomContextMenuComponent
+    SubMenuCustomContextMenuComponent,
+    PatientComponent
   ],
   imports: [
     BrowserModule,

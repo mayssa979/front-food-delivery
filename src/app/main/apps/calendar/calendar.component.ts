@@ -9,6 +9,9 @@ import { CoreConfigService } from '@core/services/config.service';
 
 import { CalendarService } from 'app/main/apps/calendar/calendar.service';
 import { EventRef } from 'app/main/apps/calendar/calendar.model';
+import { rdv } from 'app/auth/models/rdv';
+
+let rd = new rdv();
 
 @Component({
   selector: 'app-calendar',
@@ -21,6 +24,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   public slideoutShow = false;
   public events = [];
   public event;
+  public rr:any;
 
   public calendarOptions: CalendarOptions = {
     headerToolbar: {
@@ -28,7 +32,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
     },
     initialView: 'dayGridMonth',
-    initialEvents: this.events,
+   // initialEvents: this.events,
     weekends: true,
     editable: true,
     eventResizableFromStart: true,
@@ -36,6 +40,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     selectMirror: true,
     dayMaxEvents: 2,
     navLinks: true,
+
+    eventsSet(events) {
+      
+    },
+
     eventClick: this.handleUpdateEventClick.bind(this),
     eventClassNames: this.eventClass.bind(this),
     select: this.handleDateSelect.bind(this)
@@ -83,11 +92,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   /**
    * Update Event
    *
-   * @param eventRef
+   * @param rdv
    */
-  handleUpdateEventClick(eventRef: EventClickArg) {
+  handleUpdateEventClick(rdv: EventClickArg) {
+
+      console.log("rdvvv------",rdv);
+
+
     this._coreSidebarService.getSidebarRegistry('calendar-event-sidebar').toggleOpen();
-    this._calendarService.updateCurrentEvent(eventRef);
+    this._calendarService.updateCurrentEvent(rdv);
   }
 
   /**
@@ -99,6 +112,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
+
+  test(){
+    console.log("select event");
+    
+  }
+
   /**
    * Date select Event
    *
@@ -107,6 +126,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   handleDateSelect(eventRef) {
     const newEvent = new EventRef();
     newEvent.start = eventRef.start;
+    newEvent.id = eventRef.id;
     this._coreSidebarService.getSidebarRegistry('calendar-event-sidebar').toggleOpen();
     this._calendarService.onCurrentEventChange.next(newEvent);
   }
@@ -138,8 +158,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this._calendarService.onCurrentEventChange.subscribe(res => {
-      this.event = res;
+    this._calendarService.getEvents().subscribe(res => {
+
+      console.log("get rdvs +++++++++++++++",res);
+      
+      this.calendarOptions.events  = res;
+
+      //this.event = res;
     });
   }
 

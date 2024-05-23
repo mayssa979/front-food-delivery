@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { TokenStorageService } from 'app/main/pages/authentication/auth-login-v2/TokenStorageService';
 
-const AUTH_API = 'http://localhost:8081/api/auth/';
+const AUTH_API = 'http://localhost:8080/api/v1/auth/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -35,7 +35,7 @@ export class AuthenticationService {
   constructor(private _http: HttpClient, private _toastrService: ToastrService, private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    this.usersUrl = 'http://localhost:8081/api/auth/signin';
+    this.usersUrl = 'http://localhost:8080/api/v1/auth/authenticate';
   }
 
   // getter: currentUserValue
@@ -63,58 +63,43 @@ export class AuthenticationService {
   /**
    * User login
    *
-   * @param username
+   * @param email
    * @param password
    * @returns user
    */
-  login(username: string, password: string) {
+  /*login(email: string, password: string) {
     return this._http
-      .post<any>(`${this.usersUrl}`, { username:username, password:password })
+      .post<any>(`${this.usersUrl}`, { email:email, password:password })
       ;
   }
   log(){
-    let url = 'http://localhost:8081/api/v1/login';
+    let url = 'localhost:8080/api/v1/auth/authenticate';
     let result = this.http.post(url, {
-        userName: this.model.username,
+        email: this.model.username,
         password: this.model.password
     }).subscribe()
-  }
-  /*loginn(credentials): Observable<any> {
-    return this._http.post(this.usersUrl, {
-      username: credentials.username,
-      password: credentials.password
-    }, options);
   }*/
+  
 
-  logi(credentials): Observable<any> {
-    return this.http.post(AUTH_API + 'signin', {
-      username: credentials.username,
+  login(credentials): Observable<any> {
+    console.log("aaa", credentials);
+    return this.http.post(AUTH_API + 'authenticate', {
+      email: credentials.email,
       password: credentials.password
     }, httpOptions);
+    
   }
 
-  /*authenticate(credentials, callback) {
-
-    const headers = new HttpHeaders(credentials ? {
-        authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-    } : {});
-
-    this._http.post(this.usersUrl ,'user', {headers: headers}).subscribe(response => {
-        if (response['name']) {
-            this.authenticated = true;
-        } else {
-            this.authenticated = false;
-        }
-        return callback && callback();
-    });
-
-}*/
 
 register(user): Observable<any> {
-  return this.http.post(AUTH_API + 'signup', {
-    username: user.username,
+  return this.http.post(AUTH_API + 'register', {
+    firstname: user.firstname,
+    lastname: user.lastname,
+    address: user.address,
+    phoneNumber: user.phoneNumber,
     email: user.email,
     password: user.password,
+    role:user.role,
   }, httpOptions);
 }
 

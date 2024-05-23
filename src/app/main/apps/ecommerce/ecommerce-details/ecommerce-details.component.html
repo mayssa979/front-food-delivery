@@ -9,39 +9,44 @@
           <div class="row my-2">
             <div class="col-12 col-md-5 d-flex align-items-center justify-content-center mb-2 mb-md-0">
               <div class="d-flex align-items-center justify-content-center">
-                <img [src]="product.image" class="img-fluid product-img" alt="product image" />
+                <img  class="img-fluid product-img" [src]="getBase64ImageSrc(menu.image)" alt="product image" />
               </div>
             </div>
             <div class="col-12 col-md-7">
-              <h4>{{ product.name }}</h4>
-              <span class="card-text item-company"
-                >By <a href="javascript:void(0)" class="company-name">{{ product.brand }}</a></span
+              <h4>{{ menu.name }}</h4>
+              <!--span class="card-text item-company"
+                >By <a href="javascript:void(0)" class="company-name">{{ menu.brand }}</a></span
               >
               <div class="ecommerce-details-price d-flex flex-wrap mt-1">
-                <h4 class="item-price mr-1">${{ product.price }}</h4>
+                <h4 class="item-price mr-1">${{ menu.price }}</h4>
                 <div class="rating rating-sm pl-1 border-left mb-1">
-                  <ngb-rating [rate]="product.rating" [readonly]="true" [max]="5" class="outline-none">
+                  <ngb-rating [rate]="menu.rating" [readonly]="true" [max]="5" class="outline-none">
                     <ng-template let-fill="fill" let-index="index"
                       ><span class="fa fa-star-o mr-25" [class.fa-star]="fill === 100"></span
                     ></ng-template>
                   </ngb-rating>
                 </div>
               </div>
-              <p class="card-text">Available - <span class="text-success">In stock</span></p>
+              <p class="card-text">Available - <span class="text-success">In stock</span></p-->
               <p class="card-text">
-                {{ product.description }}
+                {{ menu.description }}
               </p>
-              <ul class="product-features list-unstyled">
-                <li *ngIf="product.hasFreeShipping"><i data-feather="shopping-cart"></i> <span>Free Shipping</span></li>
+              <!--ul class="product-features list-unstyled">
+                <li *ngIf="menu.hasFreeShipping"><i data-feather="shopping-cart"></i> <span>Free Shipping</span></li>
                 <li>
                   <i data-feather="dollar-sign"></i>
                   <span>EMI options available</span>
                 </li>
-              </ul>
+              </ul-->
               <hr />
               <div class="product-color-options">
-                <h6>Colors</h6>
-                <ul class="list-unstyled mb-0">
+                <h6>Location</h6>
+                <div class="map-container">
+                  <div class="map-frame">
+                    <div id="map"></div> 
+                  </div>
+                </div> 
+                <!--ul class="list-unstyled mb-0">
                   <li class="d-inline-block selected">
                     <div class="color-option b-primary">
                       <div class="filloption bg-primary"></div>
@@ -67,12 +72,14 @@
                       <div class="filloption bg-info"></div>
                     </div>
                   </li>
-                </ul>
+                </ul-->
               </div>
               <hr />
-              <div class="d-flex flex-column flex-sm-row pt-1">
+            
+              <!--div class="d-flex flex-column flex-sm-row pt-1">
+                
                 <a
-                  *ngIf="product.isInCart !== true"
+                  *ngIf="menu.isInCart !== true"
                   href="javascript:void(0)"
                   class="btn btn-primary btn-cart mr-0 mr-sm-1 mb-1 mb-sm-0"
                   (click)="addToCart(product)"
@@ -81,7 +88,7 @@
                   <span class="add-to-cart">Add to cart</span>
                 </a>
                 <a
-                  *ngIf="product.isInCart === true"
+                  *ngIf="menu.isInCart === true"
                   routerLink="/apps/e-commerce/checkout"
                   class="btn btn-primary btn-cart mr-0 mr-sm-1 mb-1 mb-sm-0"
                   rippleEffect
@@ -91,13 +98,13 @@
                 </a>
                 <a
                   href="javascript:void(0)"
-                  (click)="toggleWishlist(product)"
+                  (click)="toggleWishlist(menu)"
                   class="btn btn-outline-secondary btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0"
                   rippleEffect
                 >
                   <i
                     class="fa mr-50"
-                    [ngClass]="product.isInWishlist === true ? 'fa-heart text-danger' : 'fa-heart-o'"
+                    [ngClass]="menu.isInWishlist === true ? 'fa-heart text-danger' : 'fa-heart-o'"
                   ></i>
                   <span>Wishlist</span>
                 </a>
@@ -128,42 +135,57 @@
                     </a>
                   </div>
                 </div>
-              </div>
+              </div-->
             </div>
           </div>
         </div>
         <!-- Product Details ends -->
-
+      <!-- E-commerce Products Starts -->
+      <div class="content-wrapper container-xxl p-0">
+        <section id="ecommerce-menus" [ngClass]="gridViewRef === true ? 'grid-view' : 'list-view'">
+          <app-ecommerce-item-menu
+            class="card ecommerce-card"
+            [menu]="menu"
+            *ngFor="
+              let menu of menus
+                | filter: searchText:'name'
+                | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
+            "
+          ></app-ecommerce-item-menu>
+        </section>
+        </div>
+        <!-- E-commerce Products Ends -->
         <!-- Item features starts -->
         <div class="item-features">
           <div class="row text-center">
             <div class="col-12 col-md-4 mb-4 mb-md-0">
               <div class="w-75 mx-auto">
-                <i data-feather="award"></i>
-                <h4 class="mt-2 mb-1">100% Original</h4>
-                <p class="card-text">Chocolate bar candy canes ice cream toffee. Croissant pie cookie halvah.</p>
+                <i data-feather="shield"></i>
+                <h4 class="mt-2 mb-1">100% secure payment</h4>
+                <p class="card-text"> payment upon delivery.</p>
               </div>
             </div>
             <div class="col-12 col-md-4 mb-4 mb-md-0">
               <div class="w-75 mx-auto">
                 <i data-feather="clock"></i>
-                <h4 class="mt-2 mb-1">10 Day Replacement</h4>
-                <p class="card-text">Marshmallow biscuit donut dragée fruitcake. Jujubes wafer cupcake.</p>
+                <h4 class="mt-2 mb-1">Fast delivery</h4>
+                <p class="card-text"> home delivery within a maximum of 1 hour.</p>
               </div>
             </div>
             <div class="col-12 col-md-4 mb-4 mb-md-0">
               <div class="w-75 mx-auto">
-                <i data-feather="shield"></i>
-                <h4 class="mt-2 mb-1">1 Year Warranty</h4>
-                <p class="card-text">Cotton candy gingerbread cake I love sugar plum I love sweet croissant.</p>
+                <i data-feather="award"></i>
+                <h4 class="mt-2 mb-1">Free delivery</h4>
+                <p class="card-text">from 50 DT purchase in Greater Tunis.</p>
               </div>
+             
             </div>
           </div>
         </div>
         <!-- Item features ends -->
 
         <!-- Related Products starts -->
-        <div class="card-body">
+        <!--div class="card-body">
           <div class="mt-4 mb-2 text-center">
             <h4>Related Products</h4>
             <p class="card-text">People also search for this items</p>
@@ -192,11 +214,10 @@
                 </a>
               </div>
             </div>
-            <!-- Add Arrows -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
           </div>
-        </div>
+        </div-->
         <!-- Related Products ends -->
       </div>
     </section>

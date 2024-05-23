@@ -3,7 +3,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
-
 @Component({
   selector: 'app-ecommerce-details',
   templateUrl: './ecommerce-details.component.html',
@@ -14,11 +13,18 @@ import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
 export class EcommerceDetailsComponent implements OnInit {
   // public
   public contentHeader: object;
+  public menu;
   public product;
   public wishlist;
+  public menus;
   public cartList;
   public relatedProducts;
-
+  public shopSidebarToggle = false;
+  public shopSidebarReset = false;
+  public gridViewRef = true;
+  public page = 1;
+  public pageSize = 9;
+  public searchText = '';
   // Swiper
   public swiperResponsive: SwiperConfigInterface = {
     slidesPerView: 3,
@@ -87,33 +93,46 @@ export class EcommerceDetailsComponent implements OnInit {
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
-
+  getBase64ImageSrc(base64Data: string): string {
+    return `data:image/jpeg;base64,${base64Data}`;
+  }
+ 
   /**
    * On init
    */
   ngOnInit(): void {
     // Subscribe to Selected Product change
     this._ecommerceService.onSelectedProductChange.subscribe(res => {
-      this.product = res[0];
+      console.log("this", res)
+      this.menu = res;
     });
+    
+    this._ecommerceService.onMenuListChange.subscribe(res => {
+      console.log("aaaaaaaaa", res);
+      this.menus = res;
+      this.menus.isInWishlist = false;
+    });
+    
+    this._ecommerceService.onLocationChange.subscribe(res => {
+      console.log("loc", res);
+      this._ecommerceService.afficherLocalisation(res);
 
+    });
     // Subscribe to Wishlist change
     this._ecommerceService.onWishlistChange.subscribe(res => (this.wishlist = res));
 
     // Subscribe to Cartlist change
     this._ecommerceService.onCartListChange.subscribe(res => (this.cartList = res));
 
-    // Get Related Products
-    this._ecommerceService.getRelatedProducts().then(response => {
-      this.relatedProducts = response;
+    // update product is in Wishlist & is in CartList : Boolean
+    this.menus.forEach(menu => {
+      menu.isInWishlist = this.wishlist.findIndex(p => p.menuId === menu.id) > -1;
+      menu.isInCart = this.cartList.findIndex(p => p.menuId === menu.id) > -1;
     });
-
-    this.product.isInWishlist = this.wishlist.findIndex(p => p.productId === this.product.id) > -1;
-    this.product.isInCart = this.cartList.findIndex(p => p.productId === this.product.id) > -1;
 
     // content header
     this.contentHeader = {
-      headerTitle: 'Product Details',
+      headerTitle: 'Restaurant Details',
       actionButton: true,
       breadcrumb: {
         type: '',

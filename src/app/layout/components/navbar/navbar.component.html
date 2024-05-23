@@ -36,7 +36,7 @@
   </div>
   <ul class="nav navbar-nav align-items-center ml-auto">
     <!-- Language selection -->
-    <li ngbDropdown class="nav-item dropdown dropdown-language">
+    <!--li ngbDropdown class="nav-item dropdown dropdown-language">
       <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>
         <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i
         ><span class="selected-language">{{ languageOptions[_translateService.currentLang].title }}</span></a
@@ -46,7 +46,7 @@
           <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
         </a>
       </div>
-    </li>
+    </li-->
     <!--/ Language selection -->
 
     <!-- Toggle skin -->
@@ -58,7 +58,7 @@
     <!--/ Toggle skin -->
 
     <!-- Search -->
-    <app-navbar-search></app-navbar-search>
+    <!--app-navbar-search></app-navbar-search-->
     <!--/ Search -->
 
     <!-- Cart -->
@@ -66,7 +66,7 @@
     <!--/ Cart -->
 
     <!-- Notification -->
-    <app-navbar-notification></app-navbar-notification>
+    <!--app-navbar-notification></app-navbar-notification-->
     <!--/ Notification -->
 
     <!-- User Dropdown -->
@@ -82,7 +82,7 @@
         <ng-container *ngIf="this.currentUse">
           <div class="user-nav d-sm-flex d-none">
             <span class="user-name font-weight-bolder"
-              >Hello {{ this.name }} {{ this.currentUse.lastname }}</span
+              >Hello {{ this.currentUse.email }} </span
             ><span class="user-status" >{{ this.currentUse.roles }}</span>
           </div>
           
@@ -93,9 +93,9 @@
           ><span [data-feather]="'user'" [class]="'mr-50'"></span> Profile</a
         ><a ngbDropdownItem [routerLink]="['/apps/email']"
           ><span [data-feather]="'mail'" [class]="'mr-50'"></span> Inbox</a
-        ><a ngbDropdownItem [routerLink]="['/apps/todo']"
+        ><!--a ngbDropdownItem [routerLink]="['/apps/todo']"
           ><span [data-feather]="'check-square'" [class]="'mr-50'"></span> Task</a
-        ><a ngbDropdownItem [routerLink]="['/apps/chat']"
+        --><a ngbDropdownItem [routerLink]="['/apps/chat']"
           ><span [data-feather]="'message-square'" [class]="'mr-50'"></span> Chats</a
         >
         <div class="dropdown-divider"></div>

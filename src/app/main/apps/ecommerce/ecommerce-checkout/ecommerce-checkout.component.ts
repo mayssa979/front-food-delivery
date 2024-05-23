@@ -17,7 +17,7 @@ export class EcommerceCheckoutComponent implements OnInit {
   public products;
   public cartLists;
   public wishlist;
-
+  public showMap: boolean = false; // Initialize the variable to control visibility
   public address = {
     fullNameVar: '',
     numberVar: '',
@@ -47,6 +47,10 @@ export class EcommerceCheckoutComponent implements OnInit {
   nextStep() {
     this.checkoutStepper.next();
   }
+
+  toggleMapVisibility(): void {
+    this.showMap = !this.showMap; // Toggle the visibility
+  }
   /**
    * Stepper Previous
    */
@@ -61,9 +65,11 @@ export class EcommerceCheckoutComponent implements OnInit {
    */
   validateNextStep(addressForm) {
     if (addressForm.valid) {
+      
       this.nextStep();
     }
   }
+
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------

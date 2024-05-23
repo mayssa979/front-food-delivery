@@ -38,6 +38,10 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
+  {
+    path: 'patient',
+    loadChildren: () => import('./patient/patient.module').then(m => m.PatientModule)
+  },
 
  // {path: 'test',component:EcommerceComponent}
 ];

@@ -21,6 +21,8 @@ import { EcommerceSidebarComponent } from 'app/main/apps/ecommerce/ecommerce-sho
 import { EcommerceWishlistComponent } from 'app/main/apps/ecommerce/ecommerce-wishlist/ecommerce-wishlist.component';
 import { EcommerceCheckoutComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout.component';
 import { EcommerceCheckoutItemComponent } from 'app/main/apps/ecommerce/ecommerce-checkout/ecommerce-checkout-item/ecommerce-checkout-item.component';
+import { LocationComponent } from './ecommerce-checkout/location/location.component';
+import { EcommerceItemMenuComponent } from './ecommerce-item-menu/ecommerce-item-menu.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -76,7 +78,9 @@ const routes: Routes = [
     EcommerceWishlistComponent,
     EcommerceCheckoutComponent,
     EcommerceItemComponent,
-    EcommerceCheckoutItemComponent
+    EcommerceCheckoutItemComponent,
+    LocationComponent,
+    EcommerceItemMenuComponent
   ],
   imports: [
     CommonModule,

@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
-
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-
+import { PatientService } from 'app/auth/service/patient.service';
 import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 
 @Component({
@@ -29,10 +28,7 @@ export class UserListComponent implements OnInit {
   public selectRole: any = [
     { name: 'All', value: '' },
     { name: 'Admin', value: 'Admin' },
-    { name: 'Author', value: 'Author' },
-    { name: 'Editor', value: 'Editor' },
-    { name: 'Maintainer', value: 'Maintainer' },
-    { name: 'Subscriber', value: 'Subscriber' }
+    { name: 'Client', value: 'Client' }
   ];
 
   public selectPlan: any = [
@@ -72,7 +68,9 @@ export class UserListComponent implements OnInit {
   constructor(
     private _userListService: UserListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private PatientService: PatientService,
+    private http : HttpClient
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -148,6 +146,32 @@ export class UserListComponent implements OnInit {
     this.temp = this.filterRows(this.previousRoleFilter, this.previousPlanFilter, filter);
     this.rows = this.temp;
   }
+/**
+ * delete user 
+ */
+  delete(id: number): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.http.delete('http://localhost:8080/users/deleteUser/' + id, { responseType: 'text' })
+        .subscribe(
+          (response: string) => {
+            console.log("Response from server:", response);
+            this.getAll();
+            resolve(response); // Resolve the promise with the response message
+          },
+          (error: any) => {
+            console.error("Error deleting user:", error);
+            reject(error); // Reject the promise with the error object
+          }
+        );
+    });
+  }
+
+
+
+
+
+
+
 
   /**
    * Filter Rows
@@ -177,11 +201,20 @@ export class UserListComponent implements OnInit {
   /**
    * On init
    */
+  getAll():void{
+    this.http.get<any>('http://localhost:8080/users/').pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+      this.rows = config;
+      console.log("users", config);
+      this.tempData = this.rows;
+
+});
+  }
   ngOnInit(): void {
+   this.getAll();
     // Subscribe config change
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+  //  this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
-      if (config.layout.animation === 'zoomIn') {
+    /*  if (config.layout.animation === 'zoomIn') {
         setTimeout(() => {
           this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
             this.rows = response;
@@ -194,7 +227,7 @@ export class UserListComponent implements OnInit {
           this.tempData = this.rows;
         });
       }
-    });
+    });*/
   }
 
   /**

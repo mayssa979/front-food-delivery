@@ -7,6 +7,7 @@ import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { CoreConfigService } from '@core/services/config.service';
 
 import { InvoiceListService } from 'app/main/apps/invoice/invoice-list/invoice-list.service';
+import { rdvService } from 'app/auth/service/rdv.service';
 
 @Component({
   selector: 'app-invoice-list',
@@ -49,7 +50,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
    * @param {CalendarService} _calendarService
    * @param {InvoiceListService} _invoiceListService
    */
-  constructor(private _invoiceListService: InvoiceListService, private _coreConfigService: CoreConfigService) {
+  constructor(private _invoiceListService: InvoiceListService, private _coreConfigService: CoreConfigService, private rdvService: rdvService) {
     this._unsubscribeAll = new Subject();
   }
 
@@ -106,6 +107,9 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
       return isPartialNameMatch;
     });
   }
+
+  
+  
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------

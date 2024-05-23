@@ -40,10 +40,10 @@ export class UserViewService implements Resolve<any> {
    * Get rows
    */
   getApiData(id: number): Promise<any[]> {
-    const url = `api/users-data/${id}`;
-
+    const url = `http://localhost:8080/users/getUser/${id}`; // Assuming the backend URL pattern for fetching user data is like this
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
+        console.log("details user", response);
         this.rows = response;
         this.onUserViewChanged.next(this.rows);
         resolve(this.rows);

@@ -8,6 +8,7 @@ const API_URL = 'http://localhost:8080/api/test/';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+  private baseUrl = 'http://localhost:8080/api/v1/auth/';
   /**
    *
    * @param {HttpClient} _http
@@ -40,4 +41,21 @@ export class UserService {
     return this._http.get(API_URL + 'admin', { responseType: 'text' });
   }
   
+
+  getAllUser(): Observable<any>{
+    return this._http.get(this.baseUrl+'list');
+  }
+
+  getUser(id: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}list/${id}`);
+  }
+
+  deleteEmployee(id: number): Observable<any> {
+    return this._http.delete(`${this.baseUrl}delete/${id}`, { responseType: 'text' });
+  }
+
+  updateUser(id: number, value: any): Observable<Object> {
+    return this._http.put(`${this.baseUrl}update/${id}`, value);
+  }
+
 }

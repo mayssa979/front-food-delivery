@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
+import { Router, ActivatedRoute } from '@angular/router';
 import { CoreConfigService } from '@core/services/config.service';
 import { AuthenticationService } from 'app/auth/service';
 
@@ -33,8 +33,9 @@ export class AuthRegisterV2Component implements OnInit {
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder, private authService: AuthenticationService) {
+  constructor(private _coreConfigService: CoreConfigService, private _router: Router, private _formBuilder: FormBuilder, private authService: AuthenticationService) {
     this._unsubscribeAll = new Subject();
+    
 
     // Configure the layout
     this._coreConfigService.config = {
@@ -75,6 +76,7 @@ export class AuthRegisterV2Component implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        this._router.navigate(['/pages/authentication/login-v2']);
       },
       err => {
         this.errorMessage = err.error.message;
@@ -92,7 +94,10 @@ export class AuthRegisterV2Component implements OnInit {
    */
   ngOnInit(): void {
     this.registerForm = this._formBuilder.group({
-      username: ['', [Validators.required]],
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });

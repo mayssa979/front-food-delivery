@@ -99,25 +99,28 @@ export class AuthLoginV2Component implements OnInit {
   togglePasswordTextType() {
     this.passwordTextType = !this.passwordTextType;
   }
-
+  
   onSubmit() {
-    this._authenticationService.logi(this.form).subscribe(
+    this.loading = true; // Set loading to true when form is submitted
+    this._authenticationService.login(this.form).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
+        
+        this.tokenStorage.saveToken(data.access_token);
+        this.tokenStorage.saveUser(this.form);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
         this._router.navigate(['/']);
-        //this._router.navigate([this.returnUrl]);
       },
       err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
-        
       }
-    );
+    ).add(() => {
+      this.loading = false; // Reset loading state after form submission
+    });
   }
+  
   reloadPage(): void {
     window.location.reload();
   }
@@ -133,10 +136,6 @@ export class AuthLoginV2Component implements OnInit {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
     }
-   // get return url from route parameters or default to '/'
-   //this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
-
-   // Subscribe to config changes
    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
      this.coreConfig = config;
    });

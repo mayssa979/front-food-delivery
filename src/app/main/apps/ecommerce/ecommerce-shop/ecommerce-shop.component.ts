@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
+import { Restaurant } from '../../../../auth/models/Restaurant';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-
+import { Observable } from 'rxjs';
 import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
+import { RestaurantService } from '../../../../auth/service/restaurant.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-ecommerce-shop',
   templateUrl: './ecommerce-shop.component.html',
@@ -23,12 +25,18 @@ export class EcommerceShopComponent implements OnInit {
   public pageSize = 9;
   public searchText = '';
 
+  selectedData: any;
+
+
+
+ 
+
   /**
    *
    * @param {CoreSidebarService} _coreSidebarService
    * @param {EcommerceService} _ecommerceService
    */
-  constructor(private _coreSidebarService: CoreSidebarService, private _ecommerceService: EcommerceService) {}
+  constructor(private _coreSidebarService: CoreSidebarService, private _ecommerceService: EcommerceService, private httpClient : HttpClient) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -56,6 +64,11 @@ export class EcommerceShopComponent implements OnInit {
     this.gridViewRef = true;
   }
 
+
+  getAllRestaurants():Observable<Restaurant[]> {
+
+    return this.httpClient.get<Restaurant[]>('localhost:8080/api/v1/restaurants');
+   }
   /**
    * Sort Product
    */
@@ -71,7 +84,8 @@ export class EcommerceShopComponent implements OnInit {
    */
   ngOnInit(): void {
     // Subscribe to ProductList change
-
+    
+    
     this._ecommerceService.onProductListChange.subscribe(res => {
       this.products = res;
       this.products.isInWishlist = false;

@@ -1,0 +1,326 @@
+
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+    <!-- page users view start -->
+    <section class="app-user-view">
+      <!-- User Card & Plan Starts -->
+      <ul ngbNav #nav="ngbNav" class="nav nav-pills">
+        <li ngbNavItem>
+          <a ngbNavLink class="d-flex align-items-center"
+            ><i data-feather="user" class="mr-sm-50"></i><span class="d-none d-sm-block">Basic informations</span></a
+          >
+          <ng-template ngbNavContent>
+      <div class="row">
+        <!-- User Card starts-->
+        <div class="col-xl-9 col-lg-8 col-md-7">
+          <div class="card user-card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                  <div class="user-avatar-section">
+                    <div class="d-flex justify-content-start">
+                     
+                     
+                      <div class="d-flex flex-column ml-1">
+                        <div class="user-info mb-1">
+                          <h4 class="mb-0">Mr./Ms. </h4>
+                          <span class="card-text">{{ data.lastname }} {{ data.firstname }}</span>
+                        </div>
+                        <!--<div class="d-flex flex-wrap">
+                          <a routerLink="/apps/user/user-edit/{{ data.id }}" class="btn btn-primary" rippleEffect
+                            >Edit</a
+                          >
+                          <button class="btn btn-outline-danger ml-1"
+                        
+                          rippleEffect>Delete</button>
+                        </div>-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center user-total-numbers">
+                    
+                    
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                  <div class="user-info-wrapper">
+                   
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i data-feather="type" class="mr-1"></i>
+                        <span class="card-text user-info-title font-weight-bold mb-0">First name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.firstname }}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i data-feather="type" class="mr-1"></i>
+                        <span class="card-text user-info-title font-weight-bold mb-0">Last name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.lastname }}</p>
+                    </div>
+                    
+                    <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <i data-feather="phone" class="mr-1"></i>
+                        <span class="card-text user-info-title font-weight-bold mb-0">Contact</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.phone }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /User Card Ends-->
+        
+
+        <!-- Plan Card starts-->
+        <div class="col-xl-3 col-lg-4 col-md-5">
+          <div class="card plan-card border-primary">
+            <div class="card-header d-flex justify-content-between align-items-center pt-75 pb-1">
+              <h5 class="mb-0">BMI</h5>
+              <span class="badge badge-light-secondary" data-toggle="tooltip" data-placement="top" title=""
+                ><span class="nextYear"></span>
+              </span>
+            </div>
+            <div class="card-body">
+              
+              <ul class="list-unstyled my-1">
+                <li>
+                  <span class="align-middle font-weight-bold mb-0">Gender : </span>
+                   {{ data.gender }}
+                </li>
+                <li>
+                  <span class="align-middle font-weight-bold mb-0">Height : </span>
+                  {{ data.tall }} CM
+                </li>
+                <li class="my-25">
+                  <span class="align-middle font-weight-bold mb-0">Weight : </span>
+                  {{ data.weight }} KG
+                </li>
+                <li>
+                  <span class="align-middle"></span>
+                </li>
+              </ul>
+              <!--<button class="btn btn-primary text-center btn-block" rippleEffect>Upgrade Plan</button>-->
+            </div>
+          </div>
+        </div>
+        <!-- /Plan CardEnds -->
+      </div>
+      <!-- User Card & Plan Ends -->
+
+      <!-- User Timeline & Permissions Starts -->
+      <div class="row">
+        <!-- information starts -->
+        
+        <!-- information Ends -->
+
+        <!-- User Permissions Starts -->
+        <div class="col-md-6">
+          <!-- User Permissions -->
+        
+          <!-- /User Permissions -->
+        </div>
+        <!-- User Permissions Ends -->
+      </div>
+      <!-- User Timeline & Permissions Ends -->
+
+      <!-- User Invoice Starts-->
+       </ng-template>
+            </li>
+
+
+            <li ngbNavItem>
+              <a ngbNavLink class="d-flex align-items-center">
+                <i data-feather="info" class="mr-sm-50"></i><span class="d-none d-sm-block">More infos</span></a
+              >
+              <ng-template ngbNavContent>
+                <!-- Information Tab starts -->
+                <div class="tab-pane" id="information" aria-labelledby="information-tab" role="tabpanel">
+                  <!-- users edit Info form start  -->
+                  <form class="form-validate">
+                    <div class="row mt-1">
+                      <div class="col-12">
+                        <h4 class="mb-1">
+                          <i data-feather="user" [size]="16" class="mr-75 font-medium-4"></i>
+                          <span class="align-middle">Patient</span>
+                        </h4>
+                        <div class="d-flex flex-wrap my-50">
+                          <div class="user-info-title">
+                            <i data-feather="type" class="mr-1"></i>
+                            <span class="card-text user-info-title font-weight-bold mb-0">First name : </span>
+                          </div>
+                          <p class="card-text mb-0">{{ data.firstname }}</p>
+                        </div>
+                        <div class="d-flex flex-wrap my-50">
+                          <div class="user-info-title">
+                            <i data-feather="type" class="mr-1"></i>
+                            <span class="card-text user-info-title font-weight-bold mb-0">Last name : </span>
+                          </div>
+                          <p class="card-text mb-0">{{ data.lastname }}</p>
+                        </div>
+                        
+                        <div class="d-flex flex-wrap">
+                          <div class="user-info-title">
+                            <i data-feather="phone" class="mr-1"></i>
+                            <span class="card-text user-info-title font-weight-bold mb-0">Contact : </span>
+                          </div>
+                          <p class="card-text mb-0">{{ data.phone }}</p>
+                        </div>
+                        <ul class="list-unstyled my-1">
+                          <li>
+                            <span class="align-middle font-weight-bold mb-0">Gender : </span>
+                             {{ data.gender }}
+                          </li>
+                          <li>
+                            <span class="align-middle font-weight-bold mb-0">Height : </span>
+                            {{ data.tall }} CM
+                          </li>
+                          <li class="my-25">
+                            <span class="align-middle font-weight-bold mb-0">Weight : </span>
+                            {{ data.weight }} KG
+                          </li>
+                          <li>
+                            <span class="align-middle"></span>
+                          </li>
+                        </ul>
+                      </div>
+                     
+                      <div class="col-12">
+                        <h4 class="mb-1 mt-2">
+                          <i data-feather="map-pin" [size]="16" class="mr-75 font-medium-4"></i>
+                          <span class="align-middle">Address</span>
+                        </h4>
+                      </div>
+                      
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="email">Postal code</label>
+                          <input
+                            type="postalcode"
+                            id="postalcode"
+                            class="form-control"
+                            placeholder="address"
+                            name="address"
+                            [(ngModel)]="patient.postalcode"
+                          disabled/>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="email">City</label>
+                          <input
+                            type="address"
+                            id="city"
+                            class="form-control"
+                            placeholder="city"
+                            name="city"
+                            [(ngModel)]="patient.city"
+                          disabled/>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="email">State</label>
+                          <input
+                            type="address"
+                            id="state"
+                            class="form-control"
+                            placeholder="state"
+                            name="state"
+                            [(ngModel)]="patient.state"
+                          disabled/>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="email">Address</label>
+                          <input
+                            type="address"
+                            id="state"
+                            class="form-control"
+                            placeholder="state"
+                            name="state"
+                            [(ngModel)]="patient.address"
+                          disabled/>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- users edit Info form ends -->
+                </div>
+                <!-- Information Tab ends -->
+              </ng-template>
+            </li>
+
+            <li ngbNavItem>
+              <a ngbNavLink class="d-flex align-items-center">
+                <i data-feather="info" class="mr-sm-50"></i><span class="d-none d-sm-block">Appointments</span></a
+              >
+              
+              <ng-template ngbNavContent>
+              <div class="content-wrapper container-xxl p-0">
+                <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-appointment-sidebar')">
+                  <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
+                  ><span class="d-none d-sm-inline-block">Add New Appointment</span>
+                  
+                </button>
+                
+                <div class="content-body">
+                  <!-- Invoice List -->
+                 
+                    <div class="card">
+                      <!-- Invoice List Header -->
+                      
+                      <!--/ Invoice List Header -->
+              
+                      <!-- Invoice List Table -->
+                      <ngx-datatable
+                        [rows]="row"
+                        [rowHeight]="50"
+                        class="bootstrap core-bootstrap"
+                       
+                        
+                        [headerHeight]="50"
+                        [footerHeight]="50"
+                        [scrollbarH]="true"
+                      >
+                      
+                        <ngx-datatable-column name="date" prop="date" [width]="200"></ngx-datatable-column>
+                        <!--<ngx-datatable-column name="id" prop="id" [width]="50"></ngx-datatable-column>-->
+                       
+                        <ngx-datatable-column name="Dr." prop="user.firstName" [width]="250"></ngx-datatable-column>
+                          <ngx-datatable-column name="" prop="user.lastName" [width]="250"></ngx-datatable-column>
+
+                      </ngx-datatable>
+                      <!--/ Invoice List Table -->
+                    </div>
+                    
+                  <!--/ Invoice List -->
+                </div>
+              </div>
+              
+              
+                </ng-template>
+                
+                </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      <!-- /User Invoice Ends-->
+    </section>
+    
+    <!-- page users view end -->
+  </div>
+  <core-sidebar
+                      class="modal modal-slide-in sidebar-todo-modal fade"
+                      name="new-appointment-sidebar"
+                      overlayClass="modal-backdrop"
+                      hideOnEsc="true"
+                    >
+                    <app-new-appointment-sidebar></app-new-appointment-sidebar>
+                    </core-sidebar>
+</div>
+

@@ -146,7 +146,7 @@
                 <div class="row">
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
-                      <label for="checkout-name">Full Name:</label>
+                      <label for="checkout-name">First Name:</label>
                       <input
                         type="text"
                         id="checkout-name"
@@ -165,7 +165,7 @@
                       </span>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12">
+                  <!--div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
                       <label for="checkout-number">Mobile Number:</label>
                       <input
@@ -206,10 +206,10 @@
                         >
                       </span>
                     </div>
-                  </div>
+                  </div-->
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
-                      <label for="checkout-landmark">Landmark e.g. near apollo hospital:</label>
+                      <label for="checkout-landmark">Last Name:</label>
                       <input
                         type="text"
                         id="checkout-landmark"
@@ -228,28 +228,8 @@
                       </span>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12">
-                    <div class="form-group mb-2">
-                      <label for="checkout-city">Town/City:</label>
-                      <input
-                        type="text"
-                        id="checkout-city"
-                        class="form-control"
-                        [class.error]="addressForm.submitted && cityRef.invalid"
-                        name="city"
-                        placeholder="Tokyo"
-                        [(ngModel)]="address.cityVar"
-                        #cityRef="ngModel"
-                        required
-                      />
-                      <span *ngIf="addressForm.submitted && cityRef.invalid" class="invalid-form">
-                        <small class="form-text text-danger" *ngIf="cityRef.errors.required"
-                          >This field is required!</small
-                        >
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-sm-12">
+                 
+                  <!--div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
                       <label for="checkout-pincode">Pincode:</label>
                       <input
@@ -290,7 +270,7 @@
                         >
                       </span>
                     </div>
-                  </div>
+                  </div-->
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group mb-2">
                       <label for="add-type">Address Type:</label>
@@ -300,19 +280,40 @@
                       </select>
                     </div>
                   </div>
+
+
+                  <div class="col-12">
+                    <button
+                    type="button"
+                    class="btn btn-primary btn-next delivery-address"
+                    (click)="toggleMapVisibility()" 
+                    rippleEffect
+                    >
+                      Add Location
+                    </button>
+                  </div>
+                  <!--div add location start-->
+                  <div class="map-container" [hidden]="!showMap">
+                    <app-location></app-location> 
+                  </div>
+                  <!--div add location end -->
+
                   <div class="col-12">
                     <button
                       type="submit"
                       class="btn btn-primary btn-next delivery-address"
-                      (click)="validateNextStep(addressForm)"
+                     (click)="validateNextStep(addressForm)"
                       rippleEffect
                     >
                       Save And Deliver Here
                     </button>
                   </div>
+
+
                 </div>
               </div>
-            </div>
+              </div>
+
             <!-- Checkout Customer Address Left ends -->
 
             <!-- Checkout Customer Address Right starts -->

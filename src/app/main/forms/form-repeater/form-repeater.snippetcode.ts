@@ -14,7 +14,7 @@ export const snippetCodeInvoiceRepeater: snippetCode = {
             [(ngModel)]="item.itemName"
             name="itemName{{ i }}"
             id="itemName{{ i }}"
-            placeholder="Vuexy Admin Template"
+            placeholder="food-delivery Admin Template"
           />
         </div>
       </div>

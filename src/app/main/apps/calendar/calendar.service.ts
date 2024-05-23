@@ -7,6 +7,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { EventRef } from 'app/main/apps/calendar/calendar.model';
 
 import { rdv } from 'app/auth/models/rdv';
+import { TokenStorageService } from 'app/main/pages/authentication/auth-login-v2/TokenStorageService';
+import { User } from 'app/auth/models/user';
 
 let rd = new rdv();
 
@@ -21,17 +23,21 @@ export class CalendarService implements Resolve<any> {
   public calendar;
   public currentEvent;
   public tempEvents;
-
+  public rd: rdv;
   public onEventChange: BehaviorSubject<any>;
   public onCurrentEventChange: BehaviorSubject<any>;
   public onCalendarChange: BehaviorSubject<any>;
+  public currentUse: any;
+  public currentUser: User;
+
+  public id: number;
 
   /**
    * Constructor
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient , private tokenstorageservice:TokenStorageService,private token: TokenStorageService) {
     this.onEventChange = new BehaviorSubject({});
     this.onCurrentEventChange = new BehaviorSubject({});
     this.onCalendarChange = new BehaviorSubject({});
@@ -55,17 +61,29 @@ export class CalendarService implements Resolve<any> {
   /**
    * Get Events
    */
-  getEvents(): Promise<any[]> {
-    const url = 'http://localhost:8081/rdv/list';
+  getEvents(): Observable<any[]> {
 
-    return new Promise((resolve, reject) => {
-      this._httpClient.get(url).subscribe((response: any) => {
-        this.events = response;
-        this.tempEvents = response;
-        this.onEventChange.next(this.events);
-        resolve(this.events);
-      }, reject);
-    });
+    this.currentUse = this.token.getUser();
+    // get the currentUser details from localStorage
+    
+     this.id = this.currentUse.id;
+
+    //const url = 'http://localhost:8081/rdv/list';
+
+
+    return this._httpClient.get<any[]>('http://localhost:8081/api/auth/listmed/' + this.id)
+    // return new Promise((resolve, reject) => {
+    //   this._httpClient.get(url).subscribe((response: any) => {
+
+    //     console.log("get events response" ,response);
+        
+
+    //     this.events = response;
+    //     this.tempEvents = response;
+    //     this.onEventChange.next(this.events);
+    //     resolve(this.events);
+    //   }, reject);
+    // });
   }
 
   getPatient(): Promise<any[]> {
@@ -86,6 +104,10 @@ export class CalendarService implements Resolve<any> {
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
+
+          console.log('get calendar ' , response);
+          
+
         this.calendar = response;
         this.onCalendarChange.next(this.calendar);
         resolve(this.calendar);
@@ -115,9 +137,10 @@ export class CalendarService implements Resolve<any> {
     calendarsChecked.map(res => {
       calendarRef.push(res.filter);
     });
-
+    
     let filteredCalendar = this.tempEvents.filter(event => calendarRef.includes(event.calendar));
     this.events = filteredCalendar;
+    this.rd = this.events;
     this.onEventChange.next(this.events);
   }
 
@@ -128,7 +151,7 @@ export class CalendarService implements Resolve<any> {
    */
   deleteEvent(event) {
     return new Promise((resolve, reject) => {
-      this._httpClient.delete('api/calendar-events/' + event.id).subscribe(response => {
+      this._httpClient.delete('http://localhost:8081/rdv/delete/' + event.id).subscribe(response => {
         this.getEvents();
         resolve(response);
       }, reject);
@@ -141,15 +164,15 @@ export class CalendarService implements Resolve<any> {
    * @param eventForm
    */
   addEvent(eventForm) {
-    const newEvent = new EventRef();
+    const newEvent = new rdv();
     
    // newEvent.url = eventForm.url;
     //newEvent.title = eventForm.title;
-    newEvent.start = eventForm.start;
+    newEvent.date = eventForm.start;
     rd.date = eventForm.start;
     //newEvent.end = eventForm.end;
     //newEvent.allDay = eventForm.allDay;
-    newEvent.calendar = eventForm.selectlabel;
+    //  newEvent.calendar = eventForm.selectlabel;
     //eventForm.selectlabel: rdv.date;
     //newEvent.extendedProps.location = eventForm.location;
     //newEvent.extendedProps.description = eventForm.description;
@@ -165,31 +188,28 @@ export class CalendarService implements Resolve<any> {
    * @param eventRef
    */
   updateCurrentEvent(eventRef) {
-    const newEvent = new EventRef();
+    const newEvent = new rdv();
     //newEvent.allDay = eventRef.event.allDay;
-    //newEvent.id = parseInt(eventRef.event.id);
+    newEvent.id = parseInt(eventRef.event.id);
     //newEvent.url = eventRef.event.url;
     //newEvent.title = eventRef.event.title;
-    newEvent.start = eventRef.event.start;
+    newEvent.date = eventRef.event.start;
     rd.date = eventRef.event.start;
-    //newEvent.end = eventRef.event.end;
-    newEvent.calendar = eventRef.event.extendedProps.calendar;
+
+    newEvent.extendedProps.patient = eventRef.event.extendedProps.patient;
+        //newEvent.end = eventRef.event.end;
+    //   newEvent.calendar = eventRef.event.extendedProps.calendar;
     //newEvent.extendedProps.location = eventRef.event.extendedProps.location;
     //newEvent.extendedProps.description = eventRef.event.extendedProps.description;
     //newEvent.extendedProps.addGuest = eventRef.event.extendedProps.addGuest;
     
-    this.currentEvent = rd;
+    this.currentEvent = newEvent;
+//console.log("service ---", this.currentEvent);
+
+
     this.onCurrentEventChange.next(this.currentEvent);
   }
 
-  addev(rdv): Observable<any> {
-    const date: Date = new Date(2018, 0O5, 0O5, 17, 23, 42, 11);  
-    const url = 'http://localhost:8081/rdv/save';
-    return this._httpClient.post(url, {
-      date: rdv.date,
-    
-    },);
-  }
 
   /**
    * Post New Event
@@ -199,6 +219,8 @@ export class CalendarService implements Resolve<any> {
       const url = 'http://localhost:8081/rdv/save';
       this._httpClient.post(url , this.currentEvent).subscribe(response => {
         this.getEvents();
+        this.rd = this.currentEvent;
+       // console.log("id jdid : "+this.rd.id);
         resolve(response);
       }, reject);
     });
@@ -210,6 +232,9 @@ export class CalendarService implements Resolve<any> {
    * @param event
    */
   postUpdatedEvent(event) {
+//console.log(event);
+
+
     return new Promise((resolve, reject) => {
       this._httpClient.post('api/calendar-events/' + event.id, { ...event }).subscribe(response => {
         this.getEvents();

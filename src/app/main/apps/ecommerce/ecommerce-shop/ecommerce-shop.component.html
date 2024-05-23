@@ -1,7 +1,7 @@
 <div class="content-wrapper container-xxl overflow-hidden p-0">
   <app-content-header [contentHeader]="contentHeader"></app-content-header>
   <!-- Sidebar filters  -->
-  <div class="sidebar-detached sidebar-left">
+  <!--div class="sidebar-detached sidebar-left">
     <div class="sidebar">
       <core-sidebar
         class="sidebar-shop"
@@ -13,10 +13,10 @@
         <ecommerce-sidebar></ecommerce-sidebar>
       </core-sidebar>
     </div>
-  </div>
+  </div-->
   <!--/ Sidebar filters -->
 
-  <div class="content-detached content-right">
+  <div class="content-wrapper container-xxl overflow-hidden p-0">
     <div class="content-body">
       <!-- E-commerce Head Section Starts -->
       <section id="ecommerce-header">
@@ -35,7 +35,7 @@
                 <div class="search-results">{{ (products | filter: searchText:'name').length }} results found</div>
               </div>
               <div class="view-options d-flex">
-                <div class="btn-group dropdown-sort" ngbDropdown>
+                <!--div class="btn-group dropdown-sort" ngbDropdown>
                   <button
                     ngbDropdownToggle
                     type="button"
@@ -52,7 +52,7 @@
                     <a ngbDropdownItem href="javascript:void(0);" (click)="sortProduct('price-asc')">Lowest</a>
                     <a ngbDropdownItem href="javascript:void(0);" (click)="sortProduct('price-desc')">Highest</a>
                   </div>
-                </div>
+                </div-->
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                   <label
                     class="btn btn-icon btn-outline-primary view-btn grid-view-btn"

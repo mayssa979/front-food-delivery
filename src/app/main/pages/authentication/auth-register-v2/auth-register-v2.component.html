@@ -2,7 +2,7 @@
   <div class="auth-inner row m-0">
     <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
       <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28" />
-      <h2 class="brand-text text-primary ml-1">Vuexy</h2></a
+      <h2 class="brand-text text-primary ml-1">Food Delivery</h2></a
     >
     <!-- /Brand logo-->
     <!-- Left Text-->
@@ -12,8 +12,8 @@
           class="img-fluid"
           [src]="
             coreConfig.layout.skin === 'dark'
-              ? 'assets/images/pages/register-v2-dark.svg'
-              : 'assets/images/pages/register-v2.svg'
+              ? 'assets/images/pages/login-may.jpg'
+              : 'assets/images/pages/login-may.jpg'
           "
           alt="Register V2"
         />
@@ -24,29 +24,87 @@
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
         <h2 class="card-title font-weight-bold mb-1">Adventure starts here 🚀</h2>
-        <p class="card-text mb-2">Make your app management easy and fun!</p>
+        <p class="card-text mb-2">Savor the ease and joy of managing your food deliveries with our app!</p>
         <form class="auth-register-form mt-2" name="form" (ngSubmit)="onSubmit()" #f="ngForm">
           <div class="form-group">
-            <label for="register-username" class="form-label">Username</label>
+            <label for="register-firstname" class="form-label">Firstname</label>
             <input
               type="text"
-              name="username"
+              name="firstname"
               class="form-control"
-          [(ngModel)]="form.username"
+          [(ngModel)]="form.firstname"
           required
           minlength="3"
           maxlength="20"
-          #username="ngModel"
-              placeholder="johndoe"
-              aria-describedby="register-username"
+          #firstname="ngModel"
+              placeholder="mayssa"
+              aria-describedby="register-firstname"
               tabindex="1"
               autofocus
-              [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+              [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"
             />
             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">Username is required</div>
+              <div *ngIf="f.firstname.errors.required">Firstname is required</div>
             </div>
           </div>
+          <label for="register-lastname" class="form-label">Lastname</label>
+            <input
+              type="text"
+              name="lastname"
+              class="form-control"
+          [(ngModel)]="form.lastname"
+          required
+          minlength="3"
+          maxlength="20"
+          #lastname="ngModel"
+              placeholder="Ben Salah"
+              aria-describedby="register-lastname"
+              tabindex="1"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"
+            />
+            <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+              <div *ngIf="f.lasstname.errors.required">Lastname is required</div>
+            </div>
+            <label for="register-address" class="form-label">Address</label>
+            <input
+              type="text"
+              name="address"
+              class="form-control"
+          [(ngModel)]="form.address"
+          required
+          minlength="3"
+          maxlength="20"
+          #address="ngModel"
+              placeholder="70 AV HB"
+              aria-describedby="register-address"
+              tabindex="1"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+            />
+            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+              <div *ngIf="f.address.errors.required">Address is required</div>
+            </div>
+
+            <label for="register-phoneNumber" class="form-label">Phone Number</label>
+            <input
+              type="number"
+              name="phoneNumber"
+              class="form-control"
+          [(ngModel)]="form.phoneNumber"
+          required
+          minlength="3"
+          maxlength="20"
+          #phoneNumber="ngModel"
+              placeholder="(+216)"
+              aria-describedby="register-address"
+              tabindex="1"
+              autofocus
+              [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
+            />
+            <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+              <div *ngIf="f.phoneNumber.errors.required">Phone Number is required</div>
+            </div>
           <div class="form-group">
             <label for="register-email" class="form-label">Email</label>
             <input
@@ -85,6 +143,8 @@
                 tabindex="3"
                 [ngClass]="{ 'is-invalid error': submitted && f.password.errors }"
               />
+
+             
               <div class="input-group-append">
                 <span class="input-group-text cursor-pointer"
                   ><i
@@ -105,7 +165,15 @@
             >
               <div *ngIf="f.password.errors.required">Password is required</div>
             </div>
+            <div class="form-group">
+              <label class="form-label" for="user-role">User Role</label>
+              <select id="role" class="form-control" [(ngModel)]="form.role" name="role">
+                <option value="CLIENT">Client</option>
+                <option value="ADMIN">Admin</option>
+              </select>
+            </div>  
           </div>
+
           <div class="form-group">
             <div class="custom-control custom-checkbox">
               <input class="custom-control-input" type="checkbox" id="register-privacy-policy" tabindex="4" />

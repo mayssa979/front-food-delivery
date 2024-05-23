@@ -1,0 +1,97 @@
+<div class="slideout-content">
+  <!-- Modal to add new user starts-->
+  <div class="modalsd modal-slide-in sdfade new-patient-modal" id="modals-slide-in">
+    <div class="modal-dialog">
+      <form class="add-new-patient modal-content pt-0" (ngSubmit)="submit()" >
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="toggleSidebar('new-patient-sidebar')"
+        >
+          ×
+        </button>
+        <div class="modal-header mb-1">
+          <h5 class="modal-title" id="exampleModalLabel">New Patient</h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+          <div class="form-group">
+            <label for="name">CIN</label>
+            <input type="text" class="form-control" id="cin" required [(ngModel)]="employee.cin" name="cin">
+          </div>
+          <div class="form-group">
+            <label for="name">First Name</label>
+            <input type="text" class="form-control" id="firstname" required [(ngModel)]="employee.firstname" name="firstname">
+          </div>
+          <div class="form-group">
+            <label for="name">Last Name</label>
+            <input type="text" class="form-control" id="lastname" required [(ngModel)]="employee.lastname" name="lastname">
+          </div>
+
+          <div class="form-group">
+            <label for="Phone">Phone number</label>
+            
+            <input type="text" class="form-control" id="phone" required [(ngModel)]="employee.phone" name="phone">
+          </div>
+          
+          
+          <div class="form-group">
+            <label class="form-label" for="gender" >Gendre</label>
+            <select id="gender" class="form-control" required [(ngModel)]="employee.gender" name="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              
+            </select>
+          </div>
+
+          <div class="form-group">
+            <table width="100%" cellpadding="0" cellspacing="0"> 
+              
+              <tr>
+            <label for="Phone">Height(cm)</label>
+              
+            <label for="Phone">Weight(kg)</label>
+          </tr>            
+            <tr>
+              <input type="text" class="form-control" id="height" required [(ngModel)]="employee.tall" name="tall">
+            <td><input type="text" class="form-control" id="weight" required [(ngModel)]="employee.weight" name="weight"></td>
+          </tr>
+            </table>
+
+          </div>
+
+          <div class="form-group">
+            <table width="100%" cellpadding="0" cellspacing="0"> 
+              <tr>
+            <label for="Phone">City</label>
+            <td><label for="Phone">State</label></td>
+            <td><label for="Phone">Postal code</label></td>
+              </tr>
+              <tr>
+            <td><input type="text" class="form-control" id="city" required [(ngModel)]="employee.city" name="city"></td>
+            
+            <td><input type="text" class="form-control" id="state" required [(ngModel)]="employee.state" name="state"></td>
+            
+            <td><input type="text" class="form-control" id="postalcode" required [(ngModel)]="employee.postalcode" name="postalcode"></td>
+          </tr>
+            </table>
+            <label for="Phone">Address</label>
+            <input type="text" class="form-control" id="address" required [(ngModel)]="employee.address" name="address">
+          </div>
+          
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit()" rippleEffect>Submit</button>
+          <button
+            type="reset"
+            class="btn btn-outline-secondary"
+            (click)="toggleSidebar('new-patient-sidebar')"
+            rippleEffect
+          >
+            Cancel
+          </button>
+        </div>
+              </form>
+    </div>
+  </div>
+  <!-- Modal to add new user Ends-->
+</div>
